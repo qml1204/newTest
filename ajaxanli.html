@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" value="" id="name">
+    <span id="tip"></span>
+    <input type="button" value="注册">
+    <script>
+        var input = document.getElementById('name');
+        input.onblur = function()
+        {
+            var valu0e = this.value;
+            if(valu0e == ''){
+                var h = '<font>用户名不能为空</font>';
+                document.getElementById('tip').innerHTML = h;
+            }else{
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function()
+                {
+                    if(readyState == 4){
+                        var zhi = xhr.responseText;
+                        if(zhi == 1){
+                            var h = '<font color="red">用户名已被占用</font>;
+                        }else{
+                            var h = '<font color="red">用户名可用</font>'
+                        }
+                        document.getElementById('tip').innerHTML = h;
+                    }
+                }
+                xhr.open('get', 'ajaxanli.php?name='+valu0e);
+                xhr.send();
+            }
+        }
+    </script>
+</body>
+</html>
